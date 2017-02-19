@@ -35,7 +35,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
 end
   gem 'bootstrap-sass'
-
+  gem 'devise'
 
 
 group :development do
