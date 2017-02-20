@@ -32,9 +32,9 @@ class Admin::JobsController < ApplicationController
 
 
     def  update
-       @job = Job.find(job_parmas)
+       @job = Job.find(params[:id])
 
-        if @job.update
+        if @job.update(job_params)
           redirect_to admin_jobs_path
         else
           render :new
@@ -48,12 +48,6 @@ class Admin::JobsController < ApplicationController
          redirect_to admin_jobs_path
        end
 
-      def require_is_admin
-        if !current_user.admin?
-          flash[:alert] = 'You are not admin'
-          redirect_to root_path
-        end
-      end
 
 
 
