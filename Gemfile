@@ -35,8 +35,6 @@ group :development, :test do
   gem 'sqlite3'
 end
 
-
-
   gem 'bootstrap-sass'
   gem 'devise'
   gem 'simple_form'
@@ -51,6 +49,7 @@ group :development do
   #gem 'spring'
   #gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
 
 group :production do
   gem 'pg'

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'topics#index'
+  root 'jobs#index'
 
 
    namespace :admin do
