@@ -34,7 +34,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'sqlite3'
 end
-.
+
   gem 'bootstrap-sass'
   gem 'devise'
   gem 'simple_form'
