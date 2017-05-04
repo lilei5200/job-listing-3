@@ -1,18 +1,38 @@
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
+    <div class="row">
+
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-   <a class="navbar-brand" href="/"><img src='<%= image_url 'logo2.png' %>' >岁月轻狂</a>    </div>
-
+   <a class="navbar-brand" href="/"><img src='http://ww3.sinaimg.cn/large/006tNbRwgy1ff87dnps7nj301c01cdfm.jpg' >老骥伏枥</a>    </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          <li>
+               <div class="form-group form-inline search-bar">
+                 <div class="row">
+  <div class="col-sm-9 col-lg-8 col-lg-offset-2">
+    <form class="job-search-form" action="/jobs/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+      <div class="input-group">
+        <input type="text" class="form-control search-bar-input" name="q" value="" placeholder="不退休，找工作">
+
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-default search-bar-submit">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+
+</form>  </div>
+</div>
+
+               </div>
+             </li>
           <li>
 
         <% if !current_user %>
         <li><a href='#' data-toggle="modal" data-target="#signup-modal">注册</a></li>
         <li><a href='#' data-toggle="modal" data-target="#login-modal">登入</a></li>
-
         <% else %>
         <li class="dropdown">
           <a href='#' class="dropdown-toggle" data-toggle="dropdown">
