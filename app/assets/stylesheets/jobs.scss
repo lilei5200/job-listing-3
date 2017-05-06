@@ -1,3 +1,146 @@
 // Place all the styles related to the jobs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.row {
+    margin-left: -15px;
+    margin-right: -15px
+}
+
+.row:before,.row:after {
+    content: " ";
+    display: table
+}
+
+.row:after {
+    clear: both
+}
+
+
+
+.side-box {
+    display: inline;
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 35px;
+    padding-bottom: 12.5px;
+    min-width: 260px;
+    background-color: #1A6561;
+    color: #fff;
+    box-shadow: 2px 2px 3px #aaa
+}
+
+
+.job-box {
+    border: 1.5px solid #ddd;
+    box-shadow: 1px 1px 5px #ccc;
+    margin-top: 12.5px;
+    padding: 15px 1px 1px 1px;
+    background-color: #fff;
+    color: #555;
+    font-size: 16px;
+    font-family: "Hiragino Sans GB","Microsoft Yahei",SimSun,Arial,"Helvetica Neue",Helvetica
+}
+
+.job-box div {
+    margin-bottom: 5px
+}
+
+.job-box .info {
+    display: inline;
+    float: left;
+    min-width: 65%
+}
+
+.job-box .info-top h3 {
+    display: inline;
+    font-size: 20px
+}
+
+.job-box .info-top span {
+    margin-left: 10px;
+    display: inline;
+    color: #888
+}
+
+.job-box .info-mid {
+    color: #FF7D0A;
+    letter-spacing: -1px
+}
+
+.job-box .info-bot .category {
+    border: 1px solid #ccc;
+    border-radius: 2.5px;
+    padding: 5px 7.5px 5px 7.5px;
+    font-size: 12px
+}
+
+.job-box .company {
+    float: left;
+    display: inline;
+    max-width: 35%
+}
+
+.job-box .company span {
+    width: 20px;
+    margin-left: 5px
+}
+
+.job-box .company-top {
+    color: #4A6BB5;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    margin-left: -5px
+}
+
+.job-box .company-bot {
+    margin-left: 3.5px;
+    letter-spacing: 1px
+}
+
+.select-job-box {
+    margin-left: -15px
+}
+
+.select-job-box button {
+    width: 100px
+}
+
+.select-job-box .btn-select {
+    background-color: #B6C9F2;
+    color: #fff
+}
+
+
+
+.suggest-title {
+    padding: 12.5px;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 0.5px
+}
+
+.suggest-content {
+    background-color: #fff;
+    padding: 7.5px;
+    border: 0.5px dashed #eee
+}
+
+.suggest-content h3 {
+    margin-top: 1px;
+    font-size: 16px
+}
+
+.suggest-content p {
+    font-size: 16px;
+    color: #FF7D0A;
+    letter-spacing: -1px
+}
+
+.suggest-content span {
+    color: #aaa;
+    font-size: 14px;
+    letter-spacing: 0.5px
+}

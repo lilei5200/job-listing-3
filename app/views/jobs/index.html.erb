@@ -1,209 +1,88 @@
-<div class="col-md-10 col-md-offset-1 job-content">
-  <div class="row">
-    <div class="col-md-12 btn-group select-job-box">
-      <!--=== 工作地点下拉选单 ===-->
-      <div class="dropdown btn-group clearfix">
-        <% if params[:location].present? %>
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          <%= params[:location] %> <span class="caret"></span>
-        </button>
-        <% else %>
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          工作地点 <span class="caret"></span>
-        </button>
-        <% end %>
-        <ul class="dropdown-menu" selection aria-labelledby="dropdownMenuDivider">
-          <% @locations.each do |location| %>
-          <li>
-            <%= link_to(location.name, jobs_path(:location => location.name)) %>
-          </li>
-          <% end %>
-          <li>
-            <%= link_to("所有城市", jobs_path(:location => "所有城市") ) %>
-          </li>
-        </ul>
-      </div>
+<!-- index -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<% @jobs.each do |job| %>
+				<section id="job-section">
+					<div class="wrapper">
+						<div class="job-section">
+
+							<!--********** job logo **********-->
+							<div class="col-sm-2">
+								<% if job.company.title == 'Facebook' %>
+									<img class="job-logo" src='http://i.imgur.com/zVU8xTV.jpg'>
+								<% elsif job.company.title == 'Google'%>
+									<img class="job-logo" src='http://i.imgur.com/afZPGbL.png'>
+								<% elsif job.company.title == 'Amazon'%>
+									<img class="job-logo" src='http://i.imgur.com/eJwYa9C.gif'>
+								<% elsif job.company.title == 'Uber'%>
+									<img class="job-logo" src='http://i.imgur.com/SOnKxie.jpg'>
+								<% elsif job.company.title == 'Twitter'%>
+									<img class="job-logo" src='http://i.imgur.com/9qGrqGG.png'>
+								<% elsif job.company.title == 'Pinterest'%>
+									<img class="job-logo" src='http://i.imgur.com/Tw58Bhw.png'>
+								<% else %>
+									<i class="logo-mini fa fa-file-text fa-fw fa-5x"  aria-hidden="true"></i>
+								<% end %>
+							</div>
+							<!--********** job logo end **********-->
+
+							<!--********** info **********-->
+							<div class="col-sm-8">
+								<div class="title">
+									<!-- title -->
+									<span><%= link_to(job.title, job_path(job)) %></span>
+									<!-- starred / star -->
+									<% if current_user && current_user.is_follower_of?(job) %>
+										<%= link_to unstar_job_path(job), method: :post do %>
+											<sapn class="fa fa-star"></sapn>
+										<% end %>
+									<% else %>
+										<%= link_to star_job_path(job), method: :post do %>
+											<sapn class="fa fa-star-o"></sapn>
+										<% end %>
+									<% end %>
+								</div>
+								<!-- category -->
+								<p>
+									<%= job.category %>
+								</p>
+								<!-- city & salary range -->
+								<p>
+									<i class="fa fa-location-arrow fa-fx" aria-hidden="true"></i>
+									<%= job.city %>
+
+									<i class="icon fa fa-usd fa-fx" aria-hidden="true"></i>
+									<%= job.wage_lower_bound / 1000 %> K -
+									<%= job.wage_upper_bound / 1000 %> K
+								</p>
+								<!-- description -->
+								<p>
+									<%=  job.description %>
+								</p>
+							</div>
+							<!--********** info end **********-->
+
+							<!--********** apply button **********-->
+							<div class="col-sm-2 pull-right">
+								<div class="button">
+									<%= link_to(t('btn_job_apply'), new_job_resume_path(job), class: "btn btn-info btn-middle", method: :get) %>
+								</div>
+							</div>
+							<!--********** apply button end **********-->
 
 
-
-
-      <!--=== 职位类型下拉选单 ===-->
-            <div class="dropdown btn-group clearfix">
-              <% if params[:category].present? %>
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <%= params[:category] %> <span class="caret"></span>
-              </button>
-              <% else %>
-              <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                职位类型 <span class="caret"></span>
-              </button>
-              <% end %>
-              <ul class="dropdown-menu" selection aria-labelledby="dropdownMenuDivider">
-                <% @categorys.each do |category| %>
-                <li>
-                  <%= link_to(category.name, jobs_path(:category => category.name)) %>
-                </li>
-                <% end %>
-                <li>
-                  <%= link_to("所有类型", jobs_path(:category => "所有类型") ) %>
-                </li>
-              </ul>
-            </div>
-
-
-
-
-            <!--=== 月薪下拉选单 ===-->
-                 <div class="dropdown btn-group clearfix">
-                   <% if params[:wage].present? %>
-                   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                     <%= params[:wage] %> <span class="caret"></span>
-                   </button>
-                   <% else %>
-                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                     月薪 <span class="caret"></span>
-                   </button>
-                   <% end %>
-                   <ul class="dropdown-menu" selection aria-labelledby="dropdownMenuDivider">
-                     <li>
-                       <%= link_to("5k以下", jobs_path(:wage => "5k以下")) %>
-                     </li>
-                     <li>
-                       <%= link_to("5~10k", jobs_path(:wage => "5~10k")) %>
-                     </li>
-                     <li>
-                       <%= link_to("10~15k", jobs_path(:wage => "10~15k")) %>
-                     </li>
-                     <li>
-                       <%= link_to("15~25k", jobs_path(:wage => "15~25k")) %>
-                     </li>
-                     <li>
-                       <%= link_to("25k以上", jobs_path(:wage => "25k以上")) %>
-                     </li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
-
-
-<div class= "search">
-  <%= search_form_for @search do |f| %>
-    <%= f.label :title_cont %>
-    <%= f.search_field :title_cont %>
-    <%= f.submit %>
-  <% end %>
-
-  <table>
-  <thead>
-    <tr>
-      <th><%= sort_link(@q, :title) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @jobs.each do |job| %>
-      <tr>
-        <td>Title</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-
-</div>
-<div class="dropdown clearfix pull-right">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      排序
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
-        <li>
-           <%= sort_link @search, :wage_lower_bound, "薪资下限排序" %>         </li>
-        <li>
-           <%= sort_link @search, :wage_upper_bound, "薪资上限排序" %>
-
-        </li>
-        <li>
-            <%= sort_link @search, :created_at, "创建时间顺序" %>
-
-        </li>
-    </ul>
+						</div>
+					</div>
+				</section>
+			<% end %>
+		</div>
+	</div>
 </div>
 
-<table class="table table-boldered">
-    <thead>
-        <tr>
-            <td>
-                职缺</td>
-            <td>薪资下限</td>
-            <td>薪资上限</td>
-            <td>刊登时间</td>
-        </tr>
-
-    </thead>
-    <tbody>
-        <% @jobs.each do |job| %>
-        <tr>
-            <td>
-                <%= link_to(job.title, job_path(job)) %>
-            </td>
-            <td>
-                <%= job.wage_lower_bound %>
-            </td>
-            <td>
-                <%= job.wage_upper_bound %>
-            </td>
-            <td>
-                <%= job.created_at %>
-            </td>
-        </tr>
-        <% end %>
-    </tbody>
-
-</table>
-
-
-
-
-
-<div class="col-md-9 col-xs-12 job-box">
-      <!--=== 职位信息 ===-->
-      <div class="col-md-6 col-xs-12 info">
-        <div class="info-top">
-          <h3><a target="_blank" href="/jobs/7">hi</a></h3><span>2017-05-03</span>
-        </div>
-        <div class="info-mid">
-          1 k ~ 10 k
-        </div>
-        <div class="info-bot">
-          <span class="category"><span class="fa fa-laptop"> 技术</span>
-        </span></div>
-      </div>
-
-      <!--=== 公司信息 ===-->
-      <div class="col-md-6 col-xs-12 company">
-        <div class="company-top">
-          <span><a href="/jobs/7">hi</a></span>
-            <a rel="nofollow" data-method="post" href="/jobs/7/add">
-              <span class="fa fa-star-o"></span>
-</a>        </div>
-        <div class="company-mid">
-          <span class="fa fa-envelope"></span><span>sfs@dd.com</span>
-        </div>
-        <div class="company-bot">
-          <span class="fa fa-map-marker"></span><span>北京</span>
-        </div>
-      </div>
-    </div>
-
-<div class="col-md-6 col-xs-12 info">
-        <div class="info-top">
-          <h3><a target="_blank" href="/jobs/5">1</a></h3><span>2017-05-01</span>
-        </div>
-        <div class="info-mid">
-          111 k ~ 111111 k
-        </div>
-        <div class="info-bot">
-          <span class="category"><span class="fa fa-tasks"> 产品</span>
-        </span></div>
-      </div>
+<!-- pagination -->
+<div class="col-md-10 col-md-offset-1 job-bottom">
+	<div class="text-center">
+		<%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>
+	</div>
+</div>
