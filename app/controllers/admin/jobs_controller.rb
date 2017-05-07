@@ -4,7 +4,15 @@ class Admin::JobsController < ApplicationController
     layout "admin"
 
     def index
-      @jobs = Job.all
+
+      @jobs = case params[:order]
+          when 'by_lower_bound'
+            Job.order('wage_lower_bound DESC').paginate(:page => params[:page], :per_page => 10)
+          when 'by_upper_bound'
+            Job.order('wage_upper_bound DESC').paginate(:page => params[:page], :per_page => 10)
+          else
+            Job.recent.paginate(:page => params[:page], :per_page => 10)
+          end
     end
 
     def show
@@ -23,11 +31,12 @@ class Admin::JobsController < ApplicationController
       @job = Job.new(job_params)
 
       if @job.save
-        redirect_to admin_jobs_path
+        redirect_to admin_jobs_path, notice: "添加职位成功"
       else
         render :new
       end
     end
+
 
 
 
@@ -65,7 +74,7 @@ class Admin::JobsController < ApplicationController
 
 
       private
-       def job_params
-         params.require(:job).permit(:title, :description, :wage_upper_bound, :wage_lower_bound, :contact_email, :is_hidden)
-         end
+      def job_params
+      params.require(:job).permit(:name, :title, :content, :description, :category, :location, :wage, :wage_unit, :contact, :is_hidden)
+    end
        end

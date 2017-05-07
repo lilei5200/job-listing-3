@@ -37,6 +37,7 @@ class JobsController < ApplicationController
     def validate_search_key
       @query_string = params[:q].gsub(/\\|\'|\/|\?/, "") if params[:q].present?
       @search_criteria = search_criteria(@query_string)
+
     end
 
 
@@ -48,6 +49,7 @@ class JobsController < ApplicationController
 
     def new
       @job = Job.new
+      @companies = Company.all.map { |c| [c.title, c.id] }
     end
     def create
       @job = Job.new(job_params)
@@ -84,10 +86,10 @@ class JobsController < ApplicationController
 
 
 
-      private
+        private
 
-      def  job_params
-      params.require(:job).permit(:title, :description, :wage_upper_bound, :wage_lower_bound, :contact_email, :is_hidden)
-    end
+        def job_params
+        params.require(:job).permit(:name, :title, :content, :description, :category, :location, :wage, :wage_unit, :contact, :is_hidden)
+      end
 
    end
